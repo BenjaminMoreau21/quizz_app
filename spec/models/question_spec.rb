@@ -23,5 +23,10 @@ RSpec.describe Question, type: :model do
       question = Question.new(theme: @theme, content: "test")
       expect(question).to be_valid
     end
+
+    it 'should have many options' do
+      question = Question.new(theme: @theme, content: "test")
+      question.options.empty?
+    end
   end
 end
