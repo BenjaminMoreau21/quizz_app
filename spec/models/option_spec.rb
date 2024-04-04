@@ -20,6 +20,11 @@ RSpec.describe Option, type: :model do
       expect(option.errors[:content]).to include("can't be blank")
     end
 
+    it "should be false by default" do
+      option = Option.new(question: @question)
+      expect(option.correct).to be(false)
+    end
+
     it 'should valid with a content' do
       option = Option.new(question: @question, content: "test")
       expect(option).to be_valid

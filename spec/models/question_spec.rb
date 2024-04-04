@@ -26,7 +26,7 @@ RSpec.describe Question, type: :model do
 
     it 'should have many options' do
       question = Question.new(theme: @theme, content: "test")
-      question.options.empty?
+      expect(question.options).to be_empty
     end
   end
 end

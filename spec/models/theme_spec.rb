@@ -25,7 +25,7 @@ RSpec.describe Theme, type: :model do
 
     it 'should have many questions' do
       theme = Theme.new(name: "Test name", user: @user)
-      theme.questions.empty?
+      expect(theme.questions).to be_empty
     end
   end
 end
