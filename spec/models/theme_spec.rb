@@ -20,5 +20,11 @@ RSpec.describe Theme, type: :model do
       theme = Theme.new(name: "Test name", user: user)
       expect(theme).to be_valid
     end
+
+    it 'should have many questions' do
+      user = User.create!(email: "john@example.com", password: "password")
+      theme = Theme.new(name: "Test name", user: user)
+      theme.questions.empty?
+    end
   end
 end
