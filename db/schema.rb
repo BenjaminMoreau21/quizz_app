@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_04_151032) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_05_113852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "option_id", null: false
+    t.bigint "result_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_id"], name: "index_answers_on_option_id"
+    t.index ["result_id"], name: "index_answers_on_result_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
 
   create_table "options", force: :cascade do |t|
     t.string "content"
@@ -29,6 +40,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_151032) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["theme_id"], name: "index_questions_on_theme_id"
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["theme_id"], name: "index_results_on_theme_id"
+    t.index ["user_id"], name: "index_results_on_user_id"
   end
 
   create_table "themes", force: :cascade do |t|
@@ -51,7 +71,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_151032) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "answers", "options"
+  add_foreign_key "answers", "results"
+  add_foreign_key "answers", "users"
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "themes"
+  add_foreign_key "results", "themes"
+  add_foreign_key "results", "users"
   add_foreign_key "themes", "users"
 end
